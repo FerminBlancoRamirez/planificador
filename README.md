@@ -22,3 +22,12 @@ npm i dayjs
 ```
 npm run preview
 ```
+
+## Desplegar en netlify usando la CLI
+```
+npm i -g netlify-cli
+
+netlify login
+
+netlify init
+```
