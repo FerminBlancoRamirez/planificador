@@ -1,29 +1,37 @@
-//importar dayjs
-import dayjs from "dayjs";
+import { calcularPeso, formatearFecha } from './utils.js'
+import './style.css'
+import confetti from 'canvas-confetti'
+import.meta.env.VITE_VERSION
 
+const boton = document.getElementById('añadir')
+const input = document.getElementById('texto')
+const inputMin = document.getElementById('min')
+const lista = document.getElementById('lista')
 
-//boton referenciado por id
-const boton = document.getElementById("añadir");
+boton.addEventListener('click', guardarPlan)
 
-//constante referenciada por id del input
-const input = document.getElementById("texto");
+function guardarPlan(e) {
+  e.preventDefault()
+  const minutos = inputMin.value
+  
+  let peso = calcularPeso(minutos)
 
-//constante referenciada por el id de la lista
-const lista = document.getElementById("lista");
+  const fechaHoy = formatearFecha(new Date())
 
-//Poner el boton a la espera de ser clickado
-boton.addEventListener("click", guardarPlan);//no poner parentesis en la funcion porque si no le ejecutaria en el momento
+  const li = document.createElement('li')
 
-//funcion que guarda lo que se haya añadido tras hacer click
-function guardarPlan() {
-    //conseguir la fecha actual gracias a dayjs
-    const fechaHoy = dayjs().format("DD/MM/YYYY HH:mm")
-    //creamos un li cada vez que se llame a la funcion
-    const li = document.createElement("li")
-    //rellena el li con lo que se introduce en el input mas la fecha de hoy
-    li.textContent = input.value + " " + fechaHoy;
-    //introduce los li creados en la lista creada
-    lista.appendChild(li);
-    //borrar lo escrito en lo que se añade
-    input.value = "";
+  li.textContent =
+    input.value + ' - ' + fechaHoy + ' ' + minutos + ' (' + peso + ')'
+  lista.appendChild(li)
+  input.value = ''
+
+  confetti({
+    particleCount: 100,
+    startVelocity: 30,
+    spread: 360,
+    origin: {
+      x: Math.random(),
+      y: Math.random() - 0.2,
+    },
+  })
 }
