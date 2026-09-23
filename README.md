@@ -81,3 +81,8 @@ Añadir  confetti cuando se guarde un texto
 ```
 https://www.npmjs.com/package/canvas-confetti
 ```
+
+## Test e2e
+```
+npm init playwright@latest
+```
